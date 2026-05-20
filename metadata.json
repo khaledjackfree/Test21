@@ -1,0 +1,10 @@
+{
+  "name": "CloudPort Quantum",
+  "description": "نظام الربط بالهواتف السحابية ونقل المرئيات والملفات محلياً بسرعة البرق بدون إنترنت 0% باقة، مع محاكي بوابة تيرمكس (Termux) ونقل الملفات عابر القارات والحدود",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
