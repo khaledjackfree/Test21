@@ -17,7 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Setup temporary upload storage folder on the server
-const UPLOAD_DIR = path.join('/tmp', 'cloudport-uploads');
+let UPLOAD_DIR = path.join('/tmp', 'cloudport-uploads');
+try {
+  // Check if /tmp exists and is accessible, fallback to local directory on Termux/environments without standard /tmp
+  if (!fs.existsSync('/tmp')) {
+    UPLOAD_DIR = path.join(process.cwd(), 'cloudport-uploads');
+  }
+} catch (e) {
+  UPLOAD_DIR = path.join(process.cwd(), 'cloudport-uploads');
+}
+
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }

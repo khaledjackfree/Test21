@@ -486,21 +486,32 @@ export function CloudTunnel({ roomId, setRoomId, addLog }: CloudTunnelProps) {
           </div>
 
           {/* GitHub Clone Troubleshooting Card */}
-          <div className="p-4 bg-rose-950/20 border border-rose-900/40 rounded-2xl text-right space-y-2">
+          <div className="p-4 bg-rose-950/20 border border-rose-950/40 rounded-2xl text-right space-y-3">
             <div className="flex items-center justify-end gap-2 text-rose-400">
-              <span className="text-xs font-extrabold">⚠️ حل مشكلة فشل التحميل (Authentication Failed) في تيرمكس</span>
+              <span className="text-xs font-black">⚙️ حل المشكلة الظاهرة في الصورة (خطأ المجلد وحزمة package.json)</span>
               <WifiOff className="w-4 h-4" />
             </div>
-            <p className="text-[10px] text-slate-350 leading-relaxed">
-              لقد رصدنا أنك واجهت مشكلة <code className="text-rose-350 font-mono text-[9px] bg-rose-950 px-1 rounded">Invalid username or token / Password authentication is not supported</code> أثناء محاولة سحب الكود داخل هاتفك. يرجع هذا إلى أن GitHub يمنع تسجيل الدخول واستنساخ المشاريع الخاصة باستخدام كلمة المرور العادية.
+            
+            <p className="text-[10px] text-slate-300 leading-relaxed">
+              المشكلة واضحة جداً وبسيطة للغاية! عندما قمت بكتابة أمر سحب الكود:
+              <br />
+              <code className="text-cyan-400 bg-slate-900 px-1 rounded font-mono text-[9px] block text-left my-1">git clone https://github.com/khaledjackfree/Test.git && cd cloudport</code>
+              الـ GitHub قام بإنشاء مجلد اسم الملف وهو <strong className="text-yellow-400">Test</strong> وليس <strong className="text-yellow-400">cloudport</strong>. لذلك عندما كتب النظام تلقائياً <code className="text-rose-400 font-mono text-[9.5px]">cd cloudport</code> قال لك تيرمكس:
+              <br />
+              <code className="text-rose-450 font-mono text-[9px] bg-slate-950 p-1 rounded block text-left my-1">bash: cd: cloudport: No such file or directory</code>
+              وبما أنك لم تكن داخل مجلد المشروع، عندما حاولت تثبيت الحزم بكتابة <code className="text-emerald-400 font-mono text-[9.5px]">npm install</code> فشل النظام لعدم وجود ملف <strong className="text-rose-400">package.json</strong> في المجلد الرئيسي لتيرمكس.
             </p>
+
             <div className="space-y-1.5 text-[10px] text-slate-350 pr-2">
-              <p className="font-bold text-slate-200">🛠️ لحل هذه المشكلة واختيار الطريقة الأبسط للتشغيل:</p>
-              <ul className="list-disc list-inside space-y-1 leading-relaxed">
-                <li className="text-emerald-400"><strong>الحل 1 (الموصى به والسهل جداً):</strong> اذهب إلى حسابك على GitHub واجعل المستودع الخاص بك <strong>عاماً (Public)</strong> بدلاً من خاص (Private). عند جعله عاماً، سيعمل كود الاستنساخ التالي بدون طلب أي اسم مستخدم أو كلمة مرور نهائياً!</li>
-                <li><strong>الحل 2 (بدون Git بالكامل):</strong> افتح تطبيقنا هذا من الكمبيوتر أو الهاتف، واذهب إلى القائمة العلوية ثم اضغط على <strong>تصدير كملف ZIP</strong>. احفظ الملف المضغوط على هاتفك، ثم افتحه وفك ضغطه داخل تيرمكس باستخدام الأمر: <code className="text-cyan-400 bg-slate-900 px-1 rounded font-mono">unzip project.zip</code>.</li>
-                <li><strong>الحل 3 (توكين الوصول الشخصي):</strong> قم بإنشاء <strong>Personal Access Token (classic)</strong> من إعدادات حسابك على جيت هاب، وعندما يطلب منك تيرمكس كلمة المرور، قم بلصق التوكين (وليس الباسورد العادي).</li>
-              </ul>
+              <p className="font-extrabold text-emerald-400">✅ الحل الصحيح كالتالي (اكتب هذه الأوامر بالترتيب داخل Termux):</p>
+              <div className="bg-slate-950 p-2.5 rounded-lg border border-slate-900 space-y-1 text-[9.5px] text-slate-300 font-mono text-left tracking-wide select-all">
+                <div className="text-slate-500"># 1. الدخول لمجلد مشروعك الصحيح (Test):</div>
+                <div className="text-cyan-400 font-bold">cd Test</div>
+                <div className="text-slate-500 mt-1"># 2. تثبيت الحزم وبناء المشروع:</div>
+                <div className="text-cyan-400 font-bold">npm install && npm run build</div>
+                <div className="text-slate-500 mt-1"># 3. تشغيل الخادم والبدء بالنقل السحابي الفوري:</div>
+                <div className="text-emerald-400 font-bold">node dist/server.cjs</div>
+              </div>
             </div>
           </div>
 
